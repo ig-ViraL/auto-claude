@@ -4,7 +4,8 @@
       "Bash(npm install:*)",
       "Bash(npx tsc:*)",
       "Bash(grep -r RouteContext D:/Work/auto-claude/node_modules/next/dist --include=*.d.ts -l)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npx eslint:*)"
     ]
   }
 }

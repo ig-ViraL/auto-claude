@@ -19,11 +19,16 @@ async function finnhubFetch(path: string): Promise<unknown> {
 }
 
 // ---------------------------------------------------------------------------
-// Quotes — NOT cached. Must be fresh on every request.
-// These are the live prices the screener is built around.
+// Quotes — cached for 1 minute. Prices are live but a short cache reduces
+// redundant Finnhub calls when multiple users view the same ticker.
+// Using 'use cache' as required by Next.js 16 (no implicit caching).
 // ---------------------------------------------------------------------------
 
 export async function fetchQuote(ticker: string): Promise<StockQuote> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag(`quote-${ticker}`);
+
   const raw = (await finnhubFetch(
     `/quote?symbol=${ticker}`
   )) as Record<string, number>;

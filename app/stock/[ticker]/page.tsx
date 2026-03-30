@@ -86,15 +86,17 @@ async function DetailContent({ ticker }: { ticker: string }) {
 
       {/* Company header */}
       <div className="flex items-start gap-4">
+        {/* Using <img> for the logo: Finnhub logo URLs are external CDN paths with
+            unknown dimensions. next/image requires explicit width/height for external
+            sources and provides negligible benefit for a 48px logo.
+            eslint-disable-next-line @next/next/no-img-element */}
         {stock.logo && (
           // eslint-disable-next-line @next/next/no-img-element
-          // Using <img> here because Finnhub logo URLs are external CDN URLs
-          // with unknown dimensions — next/image requires explicit width/height
-          // for external sources, and logos are small enough that optimization
-          // provides negligible benefit.
           <img
             src={stock.logo}
             alt={`${stock.name} logo`}
+            width={48}
+            height={48}
             className="h-12 w-12 rounded-xl border border-slate-100 bg-white object-contain p-1"
             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
           />
